@@ -196,7 +196,7 @@
           results.push('Abuse score: ' + score + '/100');
           if (score > 50) results.push('⚠️ Flagged as abusive by multiple users.');
         } else {
-          const r = await fetch('https://www.virustotal.com/api/v3/domains/' + val, {
+          const r = await fetch('https://www.virustotal.com/api/v3/' + (isIP ? 'ip-addresses' : 'domains') + '/' + val, {
             headers: { 'x-apikey': 'a877c40ec40f9d8b09ff39ab61733e4a973e19fd4b30e927ce3109edcbe31476' }
           });
           const d = await r.json();
