@@ -208,7 +208,7 @@
           }
         }
         const g = await fetch('https://ipinfo.io/' + (isIP ? val : 'domain/' + val), {
-          headers: { 'Authorization': 'Bearer YOUR_IPINFO_TOKEN' }
+          headers: { 'Authorization': 'Bearer c23acfd80d6f1e' }
         });
         if (g.ok) {
           const geo = await g.json();
