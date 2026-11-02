@@ -189,7 +189,7 @@
       try {
         if (isIP) {
           const r = await fetch('https://api.abuseipdb.com/api/v2/check?ipAddress=' + val, {
-            headers: { 'Key': 'YOUR_ABUSEIPDB_KEY', 'Accept': 'application/json' }
+            headers: { 'Key': 'ebcbdb6c1895b6d4b5742bdd7e4527744f21467ce94264a51b069172d193691863fd55f4c580c381...', 'Accept': 'application/json' }
           });
           const d = await r.json();
           const score = d.data.abuseConfidenceScore;
@@ -197,7 +197,7 @@
           if (score > 50) results.push('⚠️ Flagged as abusive by multiple users.');
         } else {
           const r = await fetch('https://www.virustotal.com/api/v3/domains/' + val, {
-            headers: { 'x-apikey': 'YOUR_VT_KEY' }
+            headers: { 'x-apikey': 'a877c40ec40f9d8b09ff39ab61733e4a973e19fd4b30e927ce3109edcbe31476' }
           });
           const d = await r.json();
           if (d.data) {
