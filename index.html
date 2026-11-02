@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Save Me</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body { font-family: system-ui; margin: 0; padding: 1rem; background: #0f0f1a; color: #e0e0e0; }
+    h1 { color: #4fc3f7; }
+    .card { background: #1a1a2e; border-radius: 12px; padding: 1rem; margin: 1rem 0; }
+    .step { border-left: 3px solid #4fc3f7; padding-left: 1rem; margin: 1rem 0; }
+    button { background: #4fc3f7; color: #0f0f1a; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 1rem; cursor: pointer; }
+    input { width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid #333; background: #1a1a2e; color: #e0e0e0; box-sizing: border-box; }
+    .score { font-size: 2rem; font-weight: bold; }
+    .safe { color: #66bb6a; } .danger { color: #ef5350; }
+    .tab { display: none; } .tab.active { display: block; }
+    nav button { background: #333; color: #e0e0e0; margin-right: 0.5rem; }
+    nav button.active { background: #4fc3f7; color: #0f0f1a; }
+  </style>
+</head>
+<body>
+  <h1>Save Me</h1>
+  <nav>
+    <button class="active" onclick="show('setup')">Set Up DNS</button>
+    <button onclick="show('ioc')">Check IOC</button>
+    <button onclick="show('learn')">Learn</button>
+  </nav>
+
+  <!-- TAB 1: DNS Setup Wizard -->
+  <div id="setup" class="tab active">
+    <div class="card">
+      <p>Let's protect your device. This takes 5 minutes.</p>
+    </div>
+    <div class="step">
+      <h3>1. What is DNS?</h3>
+      <p>When you type a website, your phone asks a "directory" (DNS) for the address. We're swapping in a directory that refuses to give out addresses for certain sites.</p>
+    </div>
+    <div class="step">
+      <h3>2. On your phone</h3>
+      <p><strong>Android 9+:</strong> Settings → Network → Private DNS → "Private DNS provider hostname" → type:</p>
+      <p class="card" style="font-family:monospace; font-size:1.2rem;">dns.adguard.com</p>
+      <p><strong>iPhone:</strong> Settings → Wi-Fi → tap ⓘ → Configure DNS → Manual → add:</p>
+      <p class="card" style="font-family:monospace; font-size:1.2rem;">94.140.14.14</p>
+    </div>
+    <div class="step">
+      <h3>3. Test it</h3>
+      <p>Try visiting a site you know is blocked. If it won't load — you're protected. That's a win.</p>
+    </div>
+  </div>
+
+  <!-- TAB 2: IOC Checker -->
+  <div id="ioc" class="tab">
+    <div class="card">
+      <p>Paste an IP or domain to check its reputation:</p>
+      <input type="text" id="ioc-input" placeholder="e.g. 185.220.101.1 or badguy.com">
+      <br><br>
+      <button onclick="checkIOC()">Check</button>
+    </div>
+    <div id="ioc-result" class="card" style="display:none;"></div>
+  </div>
+
+  <!-- TAB 3: Learn -->
+  <div id="learn" class="tab">
+    <div class="card">
+      <h3>Reading DNS logs</h3>
+      <p>Each line is a question your device asked: "What's the address for X?"</p>
+      <p><strong>Normal:</strong> short domain, well-known org (google.com, cloudfront.net)</p>
+      <p><strong>Suspicious:</strong> very long random strings (DNS tunnelling), brand-new domains, domains that look like base64</p>
+    </div>
+    <div class="card">
+      <h3>MITRE ATT&CK (the cheat sheet)</h3>
+      <p>When you see something suspicious, map it:</p>
+      <ul>
+        <li>Long random subdomains → <strong>T1071.004</strong> (DNS) / <strong>T1572</strong> (Protocol Tunneling)</li>
+        <li>Known C2 IP → <strong>T1071</strong> (Application Layer Protocol)</li>
+        <li>New domain resolving to data centre → <strong>T1568.002</strong> (DNS Providers)</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    function show(id) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // IOC enrichment
+    async function checkIOC() {
+      const val = document.getElementById('ioc-input').value.trim();
+      const result = document.getElementById('ioc-result');
+      result.style.display = 'block';
+      result.innerHTML = 'Checking...';
+
+      const isIP = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(val);
+      let html = '<h3>Results for ' + val + '</h3>';
+
+      // AbuseIPDB
+      if (isIP) {
+        try {
+          const r = await fetch('https://api.abuseipdb.com/api/v2/check?ipAddress=' + val + '&maxAgeInDays=90', {
+            headers: { 'Key': 'YOUR_ABUSEIPDB_KEY', 'Accept': 'application/json' }
+          });
+          const d = await r.json();
+          const score = d.data.abuseConfidenceScore;
+          const cls = score >= 50 ? 'danger' : 'safe';
+          html += '<p class="score ' + cls + '">' + score + '%</p>';
+          html += '<p>Reports: ' + d.data.totalReports + '</p>';
+          if (d.data.reports.length) {
+            html += '<p>Categories: ' + [...new Set(d.data.reports.map(r => r.categories.join(', ')))].join(', ') + '</p>';
+          }
+        } catch(e) { html += '<p>AbuseIPDB: error</p>'; }
+      }
+
+      // VirusTotal
+      try {
+        const r = await fetch('https://www.virustotal.com/api/v3/' + (isIP ? 'ip_addresses' : 'domains') + '/' + val, {
+          headers: { 'x-apikey': 'YOUR_VT_KEY' }
+        });
+        if (r.ok) {
+          const d = await r.json();
+          const stats = d.data.attributes.last_analysis_stats;
+          html += '<p>VirusTotal: ' + stats.malicious + '/' + (stats.malicious+stats.suspicious+stats.undetected) + ' engines flag it</p>';
+        }
+      } catch(e) {}
+
+      // Geo
+      try {
+        const r = await fetch('https://ipinfo.io/' + (isIP ? val : '') + 'json');
+        const d = await r.json();
+        if (d.city) html += '<p>Location: ' + d.city + ', ' + d.country + ' | ASN: ' + (d.org || 'unknown') + '</p>';
+      } catch(e) {}
+
+      result.innerHTML = html;
+    }
+  </script>
+</body>
+</html>   
