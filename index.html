@@ -188,17 +188,13 @@
       let results = [];
       try {
         if (isIP) {
-          const r = await fetch('https://api.abuseipdb.com/api/v2/check?ipAddress=' + val, {
-            headers: { 'Key': 'ebcbdb6c1895b6d4b5742bdd7e4527744f21467ce94264a51b069172d193691863fd55f4c580c381...', 'Accept': 'application/json' }
-          });
+          const r = await fetch('https://save-me-proxy.silmarillimum.workers.dev/?target=' + val + '&type=abuseipdb');
           const d = await r.json();
           const score = d.data.abuseConfidenceScore;
           results.push('Abuse score: ' + score + '/100');
           if (score > 50) results.push('⚠️ Flagged as abusive by multiple users.');
         } else {
-          const r = await fetch('https://www.virustotal.com/api/v3/' + (isIP ? 'ip-addresses' : 'domains') + '/' + val, {
-            headers: { 'x-apikey': 'a877c40ec40f9d8b09ff39ab61733e4a973e19fd4b30e927ce3109edcbe31476' }
-          });
+          const r = await fetch('https://save-me-proxy.silmarillimum.workers.dev/?target=' + val + '&type=vt&kind=' + (isIP ? 'ip-addresses' : 'domains'));
           const d = await r.json();
           if (d.data) {
             const pos = d.data.last_analysis_stats.malicious;
@@ -207,9 +203,7 @@
             if (pos > 5) results.push('⚠️ Multiple engines detected this domain.');
           }
         }
-        const g = await fetch('https://ipinfo.io/' + (isIP ? val : 'domain/' + val), {
-          headers: { 'x-api-key': 'c23acfd80d6f1e' }
-        });
+        const g = await fetch('https://save-me-proxy.silmarillimum.workers.dev/?target=' + (isIP ? val : 'domain/' + val) + '&type=ipinfo');
         if (g.ok) {
           const geo = await g.json();
           if (geo.country) results.push('Location: ' + geo.country + ' (' + (geo.city || 'N/A') + ')');
