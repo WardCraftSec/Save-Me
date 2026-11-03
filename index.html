@@ -194,7 +194,7 @@
           results.push('Abuse score: ' + score + '/100');
           if (score > 50) results.push('⚠️ Flagged as abusive by multiple users.');
         } else {
-          const r = await fetch('https://save-me-proxy.silmarillimum.workers.dev/?target=' + val + '&type=vt&kind=' + (isIP ? 'ip-addresses' : 'domains'));
+          const r = await fetch('https://save-me-proxy.silmarillimum.workers.dev/?target=' + val + '&type=vt&kind=' + (isIP ? 'ip_addresses' : 'domains'));
           const d = await r.json();
           if (d.data) {
             const pos = d.data.last_analysis_stats.malicious;
