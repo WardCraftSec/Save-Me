@@ -1,222 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Save Me</title>
-  <link rel="icon" href="icon.png">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#3b82f6">
-  <style>
-    :root {
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --primary: #3b82f6;
-      --primary-soft: #dbeafe;
-      --text: #1e293b;
-      --text-soft: #64748b;
-      --border: #e2e8f0;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 1.5rem;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-    .shield { width: 48px; height: 48px; margin: 0 auto 1rem; display: block; }
-    h1 { text-align: center; font-size: 1.8rem; margin-bottom: 0.5rem; }
-    .intro { text-align: center; color: var(--text-soft); margin-bottom: 2rem; }
-    .safety { text-align: center; font-size: 0.85rem; color: #94a3b8; margin-bottom: 2rem; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
-    .card h2 { font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--text); }
-    .card p, .card li { color: var(--text-soft); font-size: 0.95rem; }
-    .card ol { padding-left: 1.2rem; margin: 0.75rem 0; }
-    .card li { margin-bottom: 0.4rem; }
-    .btn { display: inline-block; background: var(--primary); color: #fff; border: none; border-radius: 8px; padding: 0.75rem 1.5rem; font-size: 1rem; cursor: pointer; margin-top: 1rem; text-decoration: none; }
-    .btn:active { background: #2563eb; }
-    .btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
-    .center { text-align: center; }
-    .phone-btns { display: flex; gap: 0.75rem; margin-top: 1rem; }
-    .phone-btns .btn { flex: 1; text-align: center; }
-    .hidden { display: none; }
-    .check-input { width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; margin: 0.75rem 0; }
-    .result { margin-top: 1rem; padding: 1rem; background: var(--primary-soft); border-radius: 8px; font-size: 0.9rem; }
-    .support { text-align: center; margin-top: 2.5rem; padding: 1.5rem; background: #f1f5f9; border-radius: 12px; }
-    .support p { font-size: 0.95rem; color: var(--text-soft); margin: 0.4rem 0; }
-    .support a { color: var(--primary); text-decoration: none; }
-    footer { text-align: center; padding: 2rem 0 1rem; color: #94a3b8; font-size: 0.85rem; }
-    footer a { color: var(--primary); text-decoration: none; }
-    .mitre-tag { display: inline-block; font-size: 0.75rem; background: var(--primary-soft); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 4px; margin-top: 0.5rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Save Me — Block sites you don't want to see</title>
+<meta name="description" content="A free tool that helps you block sites you don't want to see. No technical knowledge needed.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6;max-width:520px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin-bottom:8px}
+h2{font-size:1.2rem;margin-bottom:12px}
+p{margin-bottom:12px}
+.hero{text-align:center;padding:32px 0 24px}
+.hero p{color:#475569;font-size:1rem}
+.hero .sub{font-size:.85rem;color:#64748b;margin-top:8px}
+.bubbles{display:flex;justify-content:center;gap:8px;margin:20px 0}
+.bubble{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;background:#e2e8f0;color:#64748b}
+.bubble.active{background:#3b82f6;color:#fff}
+.bubble.done{background:#93c5fd;color:#1e40af}
+.step{display:none}
+.step.visible{display:block}
+.step-card{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.step-card h2{margin-bottom:8px}
+.step-card .gloss{font-size:.85rem;color:#64748b;margin-bottom:12px}
+.help-box{background:#eff6ff;border-left:3px solid #3b82f6;padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:.9rem}
+.help-box a{color:#3b82f6}
+.btn{display:inline-block;background:#3b82f6;color:#fff;padding:12px 24px;border-radius:8px;border:none;font-size:1rem;cursor:pointer;margin-top:8px}
+.btn:active{background:#2563eb}
+.btn-secondary{background:#e2e8f0;color:#1e293b}
+.checker{margin-top:24px}
+.shield{width:48px;height:48px;margin:0 auto 12px;animation:breathe 3s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.08);opacity:1}}
+.shield svg{width:100%;height:100%}
+.checker input{width:100%;padding:12px;border:1px solid #e2e8f0;border-radius:8px;font-size:1rem;margin-bottom:12px}
+.results{margin-top:16px}
+.result-card{background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.result-card h3{font-size:1rem;margin-bottom:8px}
+.score{font-size:2rem;font-weight:700}
+.score.high{color:#dc2626}
+.score.mid{color:#f59e0b}
+.score.low{color:#16a34a}
+.detail{font-size:.85rem;color:#475569;margin-top:4px}
+.breakdown{margin-top:8px;font-size:.9rem}
+.breakdown li{margin-bottom:4px}
+.meaning-toggle{margin-top:8px;font-size:.85rem;color:#3b82f6;cursor:pointer}
+.meaning-box{display:none;margin-top:8px;font-size:.85rem;background:#f1f5f9;padding:12px;border-radius:8px}
+.meaning-box.visible{display:block}
+.history{margin-top:24px}
+.history h3{font-size:.95rem;margin-bottom:8px}
+.history-item{font-size:.85rem;padding:8px 0;border-bottom:1px solid #f1f5f9}
+.history-item .ts{color:#64748b;font-size:.8rem}
+.done-screen{text-align:center;padding:40px 0}
+.support{margin-top:32px;padding:20px;background:#fff;border-radius:12px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.support a{color:#3b82f6}
+footer{text-align:center;padding:24px 0;font-size:.8rem;color:#94a3b8}
+a{color:#3b82f6;text-decoration:none}
+a:hover{text-decoration:underline}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.9em}
+</style>
 </head>
 <body>
-  <img src="icon.png" class="shield" alt="Save Me">
-  <h1>Save Me</h1>
-  <p class="intro">This helps you set up a filter on your phone so that certain sites and apps can't load. It takes about 5 minutes. You don't need to know any tech.</p>
-  <p class="safety">This site doesn't track you. Nothing you do here is recorded. You can close this tab at any time.</p>
-  <div id="step1" class="card">
-    <h2>Create your filter account</h2>
-    <p>First, we need to make a free account at NextDNS. It's the service that does the filtering.</p>
-    <ol>
-      <li>Open this link in your browser: <strong>my.nextdns.io</strong></li>
-      <li>Tap <strong>Sign Up</strong></li>
-      <li>Use any email. You don't need to share your real name.</li>
-    </ol>
-    <p>When you're in, you'll see a dashboard. That's where we'll go next.</p>
-    <div class="center"><button class="btn" onclick="show('step2')">I'm in</button></div>
-  </div>
-  <div id="step2" class="card hidden">
-    <h2>Turn on the filters</h2>
-    <p>Now we turn on the filters that block the stuff you want to avoid.</p>
-    <ol>
-      <li>On the dashboard, tap <strong>Filters</strong> (left sidebar)</li>
-      <li>Under <strong>Blocklists</strong>, tick: OISD (ads &amp; trackers), AdGuard DNS Filter</li>
-      <li>Under <strong>Privacy</strong>, tick: <strong>Adult</strong></li>
-      <li>Tap <strong>Save</strong></li>
-    </ol>
-    <p>The filter is now active.</p>
-    <div class="center"><button class="btn" onclick="show('step3')">Done</button></div>
-  </div>
-  <div id="step3" class="card hidden">
-    <h2>Connect your phone</h2>
-    <p>Now we point your phone at the filter.</p>
-    <div class="phone-btns">
-      <button class="btn" onclick="show('android')">📱 Android</button>
-      <button class="btn btn-outline" onclick="show('iphone')">🍎 iPhone</button>
-    </div>
-  </div>
-  <div id="android" class="card hidden">
-    <h2>Android setup</h2>
-    <ol>
-      <li>Open your phone's <strong>Settings</strong> app</li>
-      <li>Search for <strong>Private DNS</strong> (or Network &amp; Internet → Private DNS)</li>
-      <li>Tap <strong>Private DNS provider hostname</strong></li>
-      <li>Back on NextDNS dashboard, tap <strong>Setup</strong> → <strong>Android</strong></li>
-      <li>Copy the address it shows (looks like <code>abcd1234.dns.nextdns.io</code>)</li>
-      <li>Paste it into the box on your phone</li>
-      <li>Tap <strong>Save</strong></li>
-    </ol>
-    <p>Your phone is now filtering.</p>
-    <div class="center"><button class="btn" onclick="show('step4')">Done</button></div>
-  </div>
-  <div id="iphone" class="card hidden">
-    <h2>iPhone setup</h2>
-    <ol>
-      <li>On your iPhone, open Safari</li>
-      <li>Go to: <strong>apple.nextdns.io/abcd1234</strong> (replace with your ID from the dashboard)</li>
-      <li>Tap <strong>Download Profile</strong></li>
-      <li>Open <strong>Settings</strong> → tap <strong>Profile Downloaded</strong> at the top</li>
-      <li>Tap <strong>Install</strong> → enter passcode → <strong>Install</strong> again</li>
-    </ol>
-    <p>Your iPhone is now filtering.</p>
-    <div class="center"><button class="btn" onclick="show('step4')">Done</button></div>
-  </div>
-  <div id="step4" class="card hidden">
-    <h2>Check it's working</h2>
-    <p>Let's confirm the filter is actually on.</p>
-    <ol>
-      <li>Open your browser</li>
-      <li>Go to: <strong>test.nextdns.io</strong></li>
-      <li>If it shows your config ID, you're good.</li>
-    </ol>
-    <p>If not, go back and double-check the address you entered.</p>
-    <div class="center">
-      <button class="btn" onclick="show('step5')">It's working</button>
-      <button class="btn btn-outline" onclick="show('step3')">Not working — help</button>
-    </div>
-  </div>
-  <div id="step5" class="card hidden">
-    <h2>Reading your logs</h2>
-    <p>NextDNS keeps a log of every site your phone tries to reach. You can look at it any time.</p>
-    <ol>
-      <li>Go back to <strong>my.nextdns.io</strong></li>
-      <li>Tap <strong>Logs</strong> (left sidebar)</li>
-      <li><strong style="color:#ef4444;">Red</strong> = blocked. No colour = allowed through.</li>
-      <li>Tap the <strong>ⓘ</strong> next to any red entry to see why it was blocked.</li>
-    </ol>
-    <p>You'll often see apps contacting trackers in the background. That's normal. The filter is doing its job.</p>
-    <div class="center"><button class="btn" onclick="show('step6')">Got it</button></div>
-  </div>
-  <div id="step6" class="card hidden">
-    <h2>Blocking a specific site</h2>
-    <p>If there's a specific site the filter isn't catching, you can block it by name.</p>
-    <ol>
-      <li>On the NextDNS dashboard, tap <strong>Filters</strong></li>
-      <li>Scroll to <strong>Denylist</strong></li>
-      <li>Type the site's address (e.g. <code>example.com</code>)</li>
-      <li>Tap <strong>Add</strong></li>
-    </ol>
-    <p>It'll be blocked within seconds. Remove it any time by tapping the × next to it.</p>
-    <div class="center"><button class="btn" onclick="show('done')">Done</button></div>
-  </div>
-  <div id="done" class="card hidden">
-    <h2>You're set up</h2>
-    <p>The filter runs in the background. You don't need to do anything else.</p>
-    <p style="margin-top:0.75rem;">If something breaks, go to <strong>Filters → Allowlist</strong> and add that site. It'll come right back.</p>
-    <p style="margin-top:0.75rem;">You can always turn this off. Settings → Private DNS → set back to <strong>Automatic</strong>.</p>
-    <p style="margin-top:1rem; color:var(--text); font-weight:500;">You've got this.</p>
-  </div>
-  <div class="card" style="margin-top:2rem;">
-    <h2>Check a site</h2>
-    <p>Want to see if a site is flagged as unsafe? Paste its address below.</p>
-    <input type="text" class="check-input" id="iocInput" placeholder="e.g. 185.220.101.1 or example.com">
-    <div class="center"><button class="btn" onclick="checkIOC()">Check</button></div>
-    <div id="iocResult" class="result hidden"></div>
-  </div>
-  <div class="support">
-    <p><strong>This page is free. Always will be.</strong></p>
-    <p>If you'd rather have a person walk you through it step by step, I do short 1-on-1 setup calls. <a href="https://ko-fi.com/wardcraft">Book one here</a>.</p>
-    <p style="font-size:0.85rem; color:#94a3b8;">Or if this helped and you can, <a href="https://ko-fi.com/wardcraft">a coffee is lovely</a>. No pressure either way.</p>
-  </div>
-  <footer>Made by <a href="https://github.com/WardCraftSec">WardCraft</a></footer>
-  <script>
-    function show(id) {
-      document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-      document.getElementById(id).classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    async function checkIOC() {
-      const val = document.getElementById('iocInput').value.trim();
-      const el = document.getElementById('iocResult');
-      el.classList.remove('hidden');
-      el.textContent = 'Checking…';
-      const isIP = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(val);
-      let results = [];
-      try {
-        if (isIP) {
-          const r = await fetch('https://save-me-proxy.silmarillimum.workers.dev/?target=' + val + '&type=abuseipdb');
-          const d = await r.json();
-          const score = d.data.abuseConfidenceScore;
-          results.push('Abuse score: ' + score + '/100');
-          if (score > 50) results.push('⚠️ Flagged as abusive by multiple users.');
-        } else {
-          const r = await fetch('https://save-me-proxy.silmarillimum.workers.dev/?target=' + val + '&type=vt&kind=' + (isIP ? 'ip_addresses' : 'domains'));
-          const d = await r.json();
-          if (d.data) {
-            const pos = d.data.last_analysis_stats.malicious;
-            const tot = Object.keys(d.data.last_analysis_results).length;
-            results.push('VirusTotal: ' + pos + '/' + tot + ' engines flagged');
-            if (pos > 5) results.push('⚠️ Multiple engines detected this domain.');
-          }
-        }
-        const g = await fetch('https://save-me-proxy.silmarillimum.workers.dev/?target=' + (isIP ? val : 'domain/' + val) + '&type=ipinfo');
-        if (g.ok) {
-          const geo = await g.json();
-          if (geo.country) results.push('Location: ' + geo.country + ' (' + (geo.city || 'N/A') + ')');
-          if (geo.org) results.push('Network: ' + geo.org);
-        }
-      } catch(e) {
-        results.push('Could not complete check. Try again later.');
+<!-- WardCraft / Save Me — PWA, no dependencies. Cloudflare Worker proxy. NextDNS integration. Blue team portfolio. -->
+<div class="hero">
+<h1>Save Me</h1>
+<p>A free tool that helps you block sites you don't want to see.<br>No technical knowledge needed. I'll walk you through it, one tap at a time.</p>
+<p class="sub">This page doesn't track you. You can close it at any point.</p>
+</div>
+<div class="bubbles" id="bubbles">
+<span class="bubble active" id="b1">1</span>
+<span class="bubble" id="b2">2</span>
+<span class="bubble" id="b3">3</span>
+<span class="bubble" id="b4">4</span>
+<span class="bubble" id="b5">5</span>
+<span class="bubble" id="b6">6</span>
+</div>
+<div class="step visible" id="step1">
+<div class="step-card">
+<h2>Step 1: Make a free account</h2>
+<p class="gloss">You need a free NextDNS account. It's like a free email address, but for your internet settings.</p>
+<p>Go to <a href="https://nextdns.io" target="_blank">nextdns.io</a> and tap <strong>Sign up</strong>. You can use any email — it doesn't have to be a real one you check often.</p>
+<p>Once you're in, you'll see a long string of numbers. That's your <strong>profile ID</strong>. Keep it somewhere safe.</p>
+</div>
+<div class="help-box">Stuck? <a href="https://ko-fi.com/wardcraft" target="_blank">Book a free 5-min call</a> or close this page — your progress isn't lost.</div>
+<button class="btn" onclick="go(2)">Next →</button>
+</div>
+<div class="step" id="step2">
+<div class="step-card">
+<h2>Step 2: Turn on the filters</h2>
+<p class="gloss">NextDNS has pre-made filter lists. You don't need to build your own — just switch them on.</p>
+<p>In your NextDNS dashboard, go to <strong>Filters</strong>. Turn on:</p>
+<p>• <strong>Blocklist for porn</strong> (or whichever category you need)<br>• <strong>Blocklist for ads</strong> (optional, but recommended)</p>
+<p>Tap <strong>Save</strong> when you're done.</p>
+</div>
+<div class="help-box">Stuck? Phones look different. You can: scroll back up / <a href="https://ko-fi.com/wardcraft" target="_blank">book a free 5-min call</a> / close this page, your progress isn't lost.</div>
+<button class="btn" onclick="go(3)">Next →</button>
+</div>
+<div class="step" id="step3">
+<div class="step-card">
+<h2>Step 3: Turn it on in your phone</h2>
+<p class="gloss">A setting called "Private DNS" — it tells your phone to route everything through NextDNS.</p>
+<p><strong>Android:</strong> Settings → Network & Internet → Private DNS → Enter provider hostname → type <code>dns.nextdns.io</code> → Save</p>
+<p><strong>iPhone:</strong> This step works differently on iOS. Go to <a href="https://nextdns.io" target="_blank">nextdns.io</a> and follow their iOS guide (you'll install a small profile).</p>
+</div>
+<div class="help-box">Stuck? Phones look different. You can: scroll back up / <a href="https://ko-fi.com/wardcraft" target="_blank">book a free 5-min call</a> / close this page, your progress isn't lost.</div>
+<button class="btn" onclick="go(4)">Next →</button>
+</div>
+<div class="step" id="step4">
+<div class="step-card">
+<h2>Step 4: Check it's working</h2>
+<p class="gloss">One quick test to confirm everything is connected.</p>
+<p>Open <a href="https://test.nextdns.io" target="_blank">test.nextdns.io</a> in your browser.</p>
+<p>✅ <strong>Green tick</strong> = you're set.<br>❌ <strong>Red cross</strong> = go back to Step 3, or <a href="https://ko-fi.com/wardcraft" target="_blank">I can help</a>.</p>
+</div>
+<div class="help-box">Stuck? If it's red, the most common fix is re-entering the hostname in Step 3. Make sure there are no spaces.</div>
+<button class="btn" onclick="go(5)">Next →</button>
+</div>
+<div class="step" id="step5">
+<div class="step-card">
+<h2>Step 5: Read your logs</h2>
+<p class="gloss">Your NextDNS dashboard shows every site your phone tried to visit. This is useful to know what's being blocked.</p>
+<p>In your dashboard, tap <strong>Logs</strong>. You'll see a list of domains with timestamps. If you see something you don't recognise, you can check it below in the <strong>Site Checker</strong>.</p>
+<p>Tip: tap any domain in the log to copy it, then paste it into the checker.</p>
+</div>
+<div class="help-box">Stuck? The logs can look overwhelming. You only need to look at entries that surprise you. Everything else is normal background traffic.</div>
+<button class="btn" onclick="go(6)">Next →</button>
+</div>
+<div class="step" id="step6">
+<div class="step-card">
+<h2>Step 6: Block specific sites</h2>
+<p class="gloss">If you see a specific domain you want blocked (not just a category), you can add it to a denylist.</p>
+<p>In your dashboard: <strong>Filters</strong> → <strong>Denylist</strong> → paste the domain → Save.</p>
+<p>That domain will now be blocked on any device using your NextDNS profile.</p>
+</div>
+<div class="help-box">Stuck? You don't need to do this step right now. You can add domains to the denylist at any time.</div>
+<button class="btn" onclick="go('done')">Finish ✓</button>
+</div>
+<div class="step" id="stepdone">
+<div class="done-screen">
+<h2>You've got this. 🛡️</h2>
+<p>It runs in the background. You don't need to do anything else.</p>
+<p style="margin-top:16px;font-size:.9rem;color:#64748b">If you ever need to check a domain or IP, the Site Checker below is always here.</p>
+</div>
+</div>
+<div class="checker" id="checker">
+<h2>Site Checker</h2>
+<p>Paste a domain or IP address below. I'll check it against three threat databases and tell you what's been reported.</p>
+<p class="gloss" style="font-size:.85rem;color:#64748b">Where to find it: NextDNS dashboard → Logs → tap the domain → copy → paste here.</p>
+<div class="shield">
+<svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+</div>
+<input type="text" id="checkInput" placeholder="e.g. example.com or 185.220.101.1" autocomplete="off">
+<button class="btn" onclick="runCheck()">Check</button>
+<div class="results" id="results"></div>
+<div class="history" id="history"></div>
+</div>
+<div class="support">
+<p>This page is free. Always will be.</p>
+<p style="font-size:.9rem">If you'd like a 15-min 1-on-1 setup call, <a href="https://ko-fi.com/wardcraft" target="_blank">book one here</a>. Tips are welcome but never expected.</p>
+</div>
+<footer>Made by WardCraft</footer>
+<script>
+const isIP = s => /^\d{1,3}(\.\d{1,3}){3}$/.test(s);
+const W = 'https://save-me-proxy.silmarillimum.workers.dev/';
+function go(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('visible'));
+  document.querySelectorAll('.bubble').forEach((b,i)=>{b.classList.remove('active','done');if(i+1<n)b.classList.add('done')});
+  if(typeof n==='number'){
+    const el=document.getElementById('step'+n);
+    if(el)el.classList.add('visible');
+    const bub=document.getElementById('b'+n);
+    if(bub)bub.classList.add('active');
+  } else {
+    document.getElementById('stepdone').classList.add('visible');
+    document.querySelectorAll('.bubble').forEach(b=>b.classList.add('done'));
+  }
+  document.getElementById('bubbles').scrollIntoView({behavior:'smooth'});
+}
+async function runCheck(){
+  const val=document.getElementById('checkInput').value.trim();
+  if(!val)return;
+  const res=document.getElementById('results');
+  res.innerHTML='<p style="text-align:center;color:#64748b">Checking…</p>';
+  let target=val, resolvedIP=null;
+  if(!isIP(val)){
+    try{
+      const r=await fetch(W+'?target='+encodeURIComponent(val)+'&type=resolve');
+      const d=await r.json();
+      if(d.Answer&&d.Answer.length>0){
+        resolvedIP=d.Answer.find(a=>a.type===1)?.data;
+        if(resolvedIP)target=resolvedIP;
       }
-      el.innerHTML = results.join('<br>');
-      if (results.some(r => r.includes('⚠️'))) {
-        el.innerHTML += '<br><span class="mitre-tag">Related: T1071.004 — Application Layer Protocol</span>';
-      }
+    }catch(e){}
+  }
+  let html='';
+  if(resolvedIP)html+='<div class="result-card"><h3>Resolved</h3><p class="detail">'+val+' → <strong>'+resolvedIP+'</strong></p></div>';
+  try{
+    const r=await fetch(W+'?target='+encodeURIComponent(target)+'&type=abuseipdb');
+    const d=await r.json();
+    if(d.data){
+      const sc=d.data.abuseConfidenceScore;
+      const cls=sc>=50?'high':sc>=20?'mid':'low';
+      html+='<div class="result-card"><h3>Abuse Reports</h3><p class="score '+cls+'">'+sc+'%</p><p class="detail">Reported by other people over the last 90 days.</p><p class="detail">Type: '+(d.data.usageType||'unknown')+'</p></div>';
     }
-  </script>
+  }catch(e){}
+  try{
+    const kind=isIP(target)?'ip_addresses':'domains';
+    const r=await fetch(W+'?target='+encodeURIComponent(target)+'&type=vt&kind='+kind);
+    const d=await r.json();
+    if(d.data&&d.data.last_analysis_stats){
+      const s=d.data.last_analysis_stats;
+      const flagged=s.malicious+s.suspicious;
+      const cls=flagged>=10?'high':flagged>=3?'mid':'low';
+      let bd='';
+      if(d.data.last_analysis_results){
+        const cats={};
+        for(const k in d.data.last_analysis_results){
+          const res=d.data.last_analysis_results[k].result;
+          if(res&&res!=='clean'&&res!=='unrated')cats[res]=(cats[res]||0)+1;
+        }
+        if(Object.keys(cats).length){
+          bd='<ul class="breakdown">';
+          for(const c in cats)bd+='<li>'+c+' — '+cats[c]+' engine'+(cats[c]>1?'s':'')+'</li>';
+          bd+='</ul>';
+        }
+      }
+      html+='<div class="result-card"><h3>VirusTotal</h3><p class="score '+cls+'">'+flagged+' / 92 flagged</p><p class="detail">'+s.malicious+' malicious, '+s.suspicious+' suspicious, '+s.harmless+' clean</p>'+bd+
+      '<p class="meaning-toggle" onclick="document.getElementById(\'mb\').classList.toggle(\'visible\')">What do these mean? ▼</p>'+
+      '<div class="meaning-box" id="mb"><p><strong>Phishing</strong> — tries to trick you into giving up passwords or personal info.<br><strong>Malware</strong> — tries to install harmful software on your device.<br><strong>Suspicious</strong> — unusual activity detected, not confirmed harmful.<br><strong>C2</strong> — communication channel for an already-infected device.</p></div></div>';
+    }
+  }catch(e){}
+  try{
+    const r=await fetch(W+'?target='+encodeURIComponent(target)+'&type=ipinfo');
+    const d=await r.json();
+    if(d.city||d.country){
+      html+='<div class="result-card"><h3>Location & Network</h3><p class="detail">'+(d.city?d.city+', ':'')+d.country+'<br>Network: '+(d.org||'unknown')+'<br>ASN: '+(d.asn||'unknown')+'</p></div>';
+    }
+  }catch(e){}
+  res.innerHTML=html||'<p style="color:#64748b">No results. Try a different input.</p>';
+  saveHistory(val);
+}
+function saveHistory(t){
+  let h=[];
+  try{h=JSON.parse(localStorage.getItem('sm_history')||'[]')}catch(e){}
+  h.unshift({t,d:new Date().toLocaleString()});
+  if(h.length>20)h=h.slice(0,20);
+  localStorage.setItem('sm_history',JSON.stringify(h));
+  renderHistory();
+}
+function renderHistory(){
+  let h=[];
+  try{h=JSON.parse(localStorage.getItem('sm_history')||'[]')}catch(e){}
+  if(!h.length)return;
+  let items=h.slice(0,10).map(x=>'<div class="history-item"><strong>'+x.t+'</strong><br><span class="ts">'+x.d+'</span></div>').join('');
+  document.getElementById('history').innerHTML='<h3>Recent checks</h3>'+items;
+}
+renderHistory();
+</script>
 </body>
 </html>   
