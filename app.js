@@ -5,6 +5,7 @@ function showTab(n){
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===n));
   document.querySelectorAll('.tab-content').forEach((c,i)=>c.classList.toggle('visible',i===n));
   window.scrollTo({top:0,behavior:'smooth'});
+  savePosition(n, null);
 }
 
 function go(tab,step){
@@ -26,6 +27,27 @@ function go(tab,step){
   }
   const bub=document.getElementById('bubbles'+tab);
   if(bub)bub.scrollIntoView({behavior:'smooth'});
+  savePosition(tab, step);
+}
+
+function savePosition(tab, step){
+  try{
+    localStorage.setItem('sm_position', JSON.stringify({tab:tab, step:step||1}));
+  }catch(e){}
+}
+
+function restorePosition(){
+  try{
+    const raw=localStorage.getItem('sm_position');
+    if(!raw)return;
+    const p=JSON.parse(raw);
+    if(p&&typeof p.tab==='number'&&p.tab>=0&&p.tab<=4){
+      showTab(p.tab);
+      if(typeof p.step==='number'&&p.step>1){
+        go(p.tab, p.step);
+      }
+    }
+  }catch(e){}
 }
 
 function toggleTrouble(stepId){
@@ -36,6 +58,10 @@ function toggleTrouble(stepId){
 async function runCheck(){
   const val=document.getElementById('checkInput').value.trim();
   if(!val)return;
+
+  const btn=document.querySelector('.checker form .btn[type="submit"]');
+  if(btn){btn.disabled=true;btn.textContent='Checking…'}
+
   const res=document.getElementById('results');
   res.innerHTML='<p style="text-align:center;color:#64748b">Checking…</p>';
   let target=val,resolvedIP=null,geo=null,org=null,asn=null,usageType=null,abuseScore=null;
@@ -120,6 +146,8 @@ async function runCheck(){
 
   res.innerHTML=html||'<p style="color:#64748b">No results. Try a different input.</p>';
   saveHistory(val);
+
+  if(btn){btn.disabled=false;btn.textContent='Check'}
 }
 
 function saveHistory(t){
@@ -139,4 +167,5 @@ function renderHistory(){
   document.getElementById('history').innerHTML='<h3>Recent checks</h3>'+items;
 }
 
-renderHistory();   
+renderHistory();
+restorePosition();   
