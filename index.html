@@ -15,7 +15,8 @@
 <img src="icon.png" alt="Save Me" class="hero-logo">
 <h1>Save Me</h1>
 <p>A free tool that helps you block sites you don't want to see.<br>No technical knowledge needed. One tap at a time.</p>
-<p class="sub">This page doesn't track you. You can close it at any point.</p>
+<p class="sub">This page doesn't track you. You can close it at any point. Takes about 5 minutes.</p>
+<p><a href="#" onclick="showTab(4);return false">Already set up? Jump to Site Checker →</a></p>
 </div>
 
 <nav class="tabs">
@@ -29,17 +30,17 @@
 <!-- TAB 0: GET YOUR DNS -->
 <div class="tab-content visible" id="tab0">
 <div class="bubbles" id="bubbles0">
-<button class="bubble active" onclick="go(0,1)">1</button>
-<button class="bubble" onclick="go(0,2)">2</button>
-<button class="bubble" onclick="go(0,3)">3</button>
-<button class="bubble" onclick="go(0,4)">4</button>
+<button class="bubble active" onclick="go(0,1)" aria-label="Step 1 of 4">1</button>
+<button class="bubble" onclick="go(0,2)" aria-label="Step 2 of 4">2</button>
+<button class="bubble" onclick="go(0,3)" aria-label="Step 3 of 4">3</button>
+<button class="bubble" onclick="go(0,4)" aria-label="Step 4 of 4">4</button>
 </div>
 
 <div class="step visible" id="t0s1">
 <div class="step-card">
-<h2>Step 1: Create a free account</h2>
+<h2>Step 1 of 4: Create a free account</h2>
 <p class="gloss">NextDNS is the service that does the filtering. It's free and takes about a minute.</p>
-<p>Go to <a href="https://nextdns.io" target="_blank">nextdns.io</a> and tap <strong>Sign up</strong>.</p>
+<p>Go to <a href="https://nextdns.io" target="_blank" rel="noopener">nextdns.io</a> and tap <strong>Sign up</strong>.</p>
 <p>Any email works — it doesn't have to be one you check often. You don't need to share your real name.</p>
 </div>
 <div class="step-actions">
@@ -57,7 +58,7 @@
 
 <div class="step" id="t0s2">
 <div class="step-card">
-<h2>Step 2: Find your profile ID and hostname</h2>
+<h2>Step 2 of 4: Find your profile ID and hostname</h2>
 <p class="gloss">Your profile ID is a string of characters (like <code>a1b2c3d4</code>). Your hostname is what you'll type into your phone or router later.</p>
 <p>Once you're in the dashboard, look at the top. You'll see:</p>
 <p>• Your <strong>profile ID</strong> (8 characters)<br>• Your <strong>hostname</strong> — it looks like <code>a1b2c3d4.dns.nextdns.io</code></p>
@@ -79,9 +80,9 @@
 
 <div class="step" id="t0s3">
 <div class="step-card">
-<h2>Step 3: Test your connection</h2>
+<h2>Step 3 of 4: Test your connection</h2>
 <p class="gloss">One quick check to make sure your account is active.</p>
-<p>Open <a href="https://test.nextdns.io" target="_blank">test.nextdns.io</a> in your browser.</p>
+<p>Open <a href="https://test.nextdns.io" target="_blank" rel="noopener">test.nextdns.io</a> in your browser.</p>
 <p>You should see your profile ID displayed. That means the account is live and ready to use.</p>
 </div>
 <div class="step-actions">
@@ -109,22 +110,22 @@
 </div>
 
 <div class="kofibox">
-<iframe src='https://ko-fi.com/wardcraftsec/?hidefeed=true&widget=true&embed=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='wardcraftsec'></iframe>
+<iframe src='https://ko-fi.com/wardcraftsec/?hidefeed=true&widget=true&embed=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='356' title='wardcraftsec'></iframe>
 </div>
 </div>
 
 <!-- TAB 1: ROUTER -->
 <div class="tab-content" id="tab1">
 <div class="bubbles" id="bubbles1">
-<button class="bubble active" onclick="go(1,1)">1</button>
-<button class="bubble" onclick="go(1,2)">2</button>
-<button class="bubble" onclick="go(1,3)">3</button>
-<button class="bubble" onclick="go(1,4)">4</button>
+<button class="bubble active" onclick="go(1,1)" aria-label="Step 1 of 4">1</button>
+<button class="bubble" onclick="go(1,2)" aria-label="Step 2 of 4">2</button>
+<button class="bubble" onclick="go(1,3)" aria-label="Step 3 of 4">3</button>
+<button class="bubble" onclick="go(1,4)" aria-label="Step 4 of 4">4</button>
 </div>
 
 <div class="step visible" id="t1s1">
 <div class="step-card">
-<h2>Step 1: Open your router (your home wifi) admin page</h2>
+<h2>Step 1 of 4: Open your router (your home wifi) admin page</h2>
 <p class="gloss">Every router (your home wifi) has a settings page. You access it from a phone or laptop that's connected to that wifi.</p>
 <p>Open a browser and type: <code>192.168.0.1</code> or <code>192.168.1.1</code> (try both if one doesn't work).</p>
 <p>It'll ask for a username and password. Check the sticker on the bottom or back of your router (your home wifi) — it's usually printed there.</p>
@@ -144,7 +145,7 @@
 
 <div class="step" id="t1s2">
 <div class="step-card">
-<h2>Step 2: Find the DNS settings</h2>
+<h2>Step 2 of 4: Find the DNS settings</h2>
 <p class="gloss">DNS (the system that looks up where websites live) settings are usually under "Internet", "WAN", or "Network" in the router (your home wifi) menu.</p>
 <p>Look for a field that says <strong>DNS server</strong>, <strong>Primary DNS</strong>, or <strong>DNS resolver (the service that answers those lookups)</strong>.</p>
 <p>There may be two fields (Primary and Secondary). You'll put your NextDNS hostname in the Primary one.</p>
@@ -164,7 +165,7 @@
 
 <div class="step" id="t1s3">
 <div class="step-card">
-<h2>Step 3: Enter your NextDNS hostname</h2>
+<h2>Step 3 of 4: Enter your NextDNS hostname</h2>
 <p class="gloss">This tells every device on your home wifi to look up websites through NextDNS instead of the default.</p>
 <p>In the Primary DNS field, type your hostname from Step 2 of the "Get your DNS" tab. It looks like:</p>
 <p style="text-align:center;font-size:1.1rem"><code>a1b2c3d4.dns.nextdns.io</code></p>
@@ -186,8 +187,8 @@
 
 <div class="step" id="t1s4">
 <div class="step-card">
-<h2>Step 4: Verify it's working</h2>
-<p>On any phone or laptop connected to your home wifi, open <a href="https://test.nextdns.io" target="_blank">test.nextdns.io</a>.</p>
+<h2>Step 4 of 4: Verify it's working</h2>
+<p>On any phone or laptop connected to your home wifi, open <a href="https://test.nextdns.io" target="_blank" rel="noopener">test.nextdns.io</a>.</p>
 <p>If it shows your profile ID → the router (your home wifi) is routing through NextDNS. Every device on this wifi is now filtered.</p>
 </div>
 <div class="step-actions">
@@ -216,22 +217,22 @@
 </div>
 
 <div class="kofibox">
-<iframe src='https://ko-fi.com/wardcraftsec/?hidefeed=true&widget=true&embed=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='wardcraftsec'></iframe>
+<iframe src='https://ko-fi.com/wardcraftsec/?hidefeed=true&widget=true&embed=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='356' title='wardcraftsec'></iframe>
 </div>
 </div>
 
 <!-- TAB 2: OTHER DEVICES -->
 <div class="tab-content" id="tab2">
 <div class="bubbles" id="bubbles2">
-<button class="bubble active" onclick="go(2,1)">1</button>
-<button class="bubble" onclick="go(2,2)">2</button>
-<button class="bubble" onclick="go(2,3)">3</button>
-<button class="bubble" onclick="go(2,4)">4</button>
+<button class="bubble active" onclick="go(2,1)" aria-label="Step 1 of 4">1</button>
+<button class="bubble" onclick="go(2,2)" aria-label="Step 2 of 4">2</button>
+<button class="bubble" onclick="go(2,3)" aria-label="Step 3 of 4">3</button>
+<button class="bubble" onclick="go(2,4)" aria-label="Step 4 of 4">4</button>
 </div>
 
 <div class="step visible" id="t2s1">
 <div class="step-card">
-<h2>Step 1: Why this tab exists</h2>
+<h2>Step 1 of 4: Why this tab exists</h2>
 <p class="gloss">The router (your home wifi) filter only works on devices using <em>that</em> wifi. A phone on mobile data, at work, in a cafe, or at a friend's home won't go through it.</p>
 <p>This tab sets up NextDNS <strong>directly on the device itself</strong>. It works on any network — mobile data, work wifi, cafe wifi, anywhere. The device always goes through NextDNS, no matter where it is.</p>
 <p>Each device gets its <strong>own named profile</strong> in your NextDNS dashboard, with its <strong>own logs</strong> and <strong>its own controls</strong>.</p>
@@ -251,7 +252,7 @@
 
 <div class="step" id="t2s2">
 <div class="step-card">
-<h2>Step 2: Create a profile for this device</h2>
+<h2>Step 2 of 4: Create a profile for this device</h2>
 <p class="gloss">Each device needs its own profile so you can see its logs separately.</p>
 <p>In your NextDNS dashboard: tap <strong>+ Create new profile</strong> (or "Add profile").</p>
 <p>Give it a name you'll recognise — e.g. "Living room phone", "Bedside tablet".</p>
@@ -272,10 +273,10 @@
 
 <div class="step" id="t2s3">
 <div class="step-card">
-<h2>Step 3: Set Private DNS on the device</h2>
+<h2>Step 3 of 4: Set Private DNS on the device</h2>
 <p class="gloss">This is the same setting as before, but you use the <em>new</em> hostname for this device's profile.</p>
 <p><strong>Android:</strong> Settings → Network &amp; Internet → Private DNS → Enter provider hostname → type the <em>new</em> hostname → Save</p>
-<p><strong>iPhone:</strong> Go to <a href="https://nextdns.io" target="_blank">nextdns.io</a> → tap this profile → tap the iPhone setup link → Download Profile → Settings → Install</p>
+<p><strong>iPhone:</strong> Go to <a href="https://nextdns.io" target="_blank" rel="noopener">nextdns.io</a> → tap this profile → tap the iPhone setup link → Download Profile → Settings → Install</p>
 <div class="router-warning">⚠️ This only works while the device has an internet connection (mobile data or wifi). If the device is in airplane mode, nothing gets logged.</div>
 </div>
 <div class="step-actions">
@@ -294,7 +295,7 @@
 
 <div class="step" id="t2s4">
 <div class="step-card">
-<h2>Step 4: Verify it appears in your dashboard</h2>
+<h2>Step 4 of 4: Verify it appears in your dashboard</h2>
 <p>Go back to your NextDNS dashboard. You should now see <strong>two profiles</strong> (or more, if you've added others).</p>
 <p>Tap the new one. You'll start seeing logs appear as the device uses the internet.</p>
 <p>Each profile has its own <strong>Logs</strong>, its own <strong>Filters</strong>, its own <strong>Denylist</strong>. You can set different rules for different devices.</p>
@@ -324,22 +325,22 @@
 </div>
 
 <div class="kofibox">
-<iframe src='https://ko-fi.com/wardcraftsec/?hidefeed=true&widget=true&embed=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='wardcraftsec'></iframe>
+<iframe src='https://ko-fi.com/wardcraftsec/?hidefeed=true&widget=true&embed=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='356' title='wardcraftsec'></iframe>
 </div>
 </div>
 
 <!-- TAB 3: BLOCK ADULT & UNWANTED CONTENT -->
 <div class="tab-content" id="tab3">
 <div class="bubbles" id="bubbles3">
-<button class="bubble active" onclick="go(3,1)">1</button>
-<button class="bubble" onclick="go(3,2)">2</button>
-<button class="bubble" onclick="go(3,3)">3</button>
-<button class="bubble" onclick="go(3,4)">4</button>
+<button class="bubble active" onclick="go(3,1)" aria-label="Step 1 of 4">1</button>
+<button class="bubble" onclick="go(3,2)" aria-label="Step 2 of 4">2</button>
+<button class="bubble" onclick="go(3,3)" aria-label="Step 3 of 4">3</button>
+<button class="bubble" onclick="go(3,4)" aria-label="Step 4 of 4">4</button>
 </div>
 
 <div class="step visible" id="t3s1">
 <div class="step-card">
-<h2>Step 1: Turn on the Adult filter</h2>
+<h2>Step 1 of 4: Turn on the Adult filter</h2>
 <p class="gloss">NextDNS has a pre-made filter that blocks adult (porn) websites. It's one tap.</p>
 <p>In your dashboard: tap <strong>Filters</strong> (left sidebar or top menu).</p>
 <p>Under <strong>Privacy</strong> or <strong>Blocklists</strong>, find <strong>Adult</strong> and tick it.</p>
@@ -361,7 +362,7 @@
 
 <div class="step" id="t3s2">
 <div class="step-card">
-<h2>Step 2: Add specific websites to the Denylist</h2>
+<h2>Step 2 of 4: Add specific websites to the Denylist</h2>
 <p class="gloss">The Adult filter blocks categories. The Denylist blocks <em>specific</em> websites by name. Use it for sites you've already seen and want gone.</p>
 <p>In your dashboard: <strong>Filters</strong> → <strong>Denylist</strong> (or "Blocklist" → "Custom").</p>
 <p>Type the website (domain) you want blocked. E.g. <code>example.com</code>. Tap <strong>Add</strong>.</p>
@@ -382,7 +383,7 @@
 
 <div class="step" id="t3s3">
 <div class="step-card">
-<h2>Step 3: Read your logs — what the colours mean</h2>
+<h2>Step 3 of 4: Read your logs — what the colours mean</h2>
 <p class="gloss">Your logs show every website (domain) the device tried to visit, with a timestamp.</p>
 <p>Each entry has a colour:</p>
 <p>🟢 <strong>Green</strong> = allowed. You (or a filter) explicitly set this to be allowed.<br>🔴 <strong>Red</strong> = blocked. A filter or denylist rule stopped it.<br>⚪ <strong>White</strong> = allowed, but no rules have been applied to it yet. It's just getting through because nothing is blocking it.</p>
@@ -403,7 +404,7 @@
 
 <div class="step" id="t3s4">
 <div class="step-card">
-<h2>Step 4: Ongoing — check logs regularly</h2>
+<h2>Step 4 of 4: Ongoing — check logs regularly</h2>
 <p class="gloss">Filters block categories, but new websites appear all the time. The logs are how you catch the ones that slip through.</p>
 <p>Every so often, open <strong>Logs</strong> and scan for white entries you don't recognise. If one looks unwanted:</p>
 <p>1. Tap it to copy the website (domain)<br>2. Go to the <strong>Site Checker</strong> tab to look into it<br>3. Add it to the <strong>Denylist</strong></p>
@@ -433,7 +434,7 @@
 </div>
 
 <div class="kofibox">
-<iframe src='https://ko-fi.com/wardcraftsec/?hidefeed=true&widget=true&embed=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='wardcraftsec'></iframe>
+<iframe src='https://ko-fi.com/wardcraftsec/?hidefeed=true&widget=true&embed=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='356' title='wardcraftsec'></iframe>
 </div>
 </div>
 
@@ -452,13 +453,16 @@
 <div class="shield">
 <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
 </div>
+<form onsubmit="runCheck();return false">
 <input type="text" id="checkInput" placeholder="e.g. example.com or 185.220.101.1" autocomplete="off">
-<button class="btn" onclick="runCheck()">Check</button>
+<button class="btn" type="submit">Check</button>
+<button class="btn btn-outline" type="button" onclick="document.getElementById('checkInput').value=''">Clear</button>
+</form>
 <div class="results" id="results"></div>
 <div class="history" id="history"></div>
 </div>
 <div class="kofibox">
-<iframe src='https://ko-fi.com/wardcraftsec/?hidefeed=true&widget=true&embed=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='wardcraftsec'></iframe>
+<iframe src='https://ko-fi.com/wardcraftsec/?hidefeed=true&widget=true&embed=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='356' title='wardcraftsec'></iframe>
 </div>
 </div>
 
@@ -468,6 +472,6 @@
 </div>
 <footer>Made by WardCraft</footer>
 <script src="app.js"></script>
-  <script data-goatcounter="https://savemewardcraftsec.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>   
+<script data-goatcounter="https://savemewardcraftsec.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>   
