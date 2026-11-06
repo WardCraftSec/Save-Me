@@ -1,5 +1,6 @@
 const isIP=s=>/^\d{1,3}(\.\d{1,3}){3}$/.test(s);
 const W='https://save-me-proxy.silmarillimum.workers.dev/';
+
 // Dark mode
 function toggleDarkMode(){
   document.body.classList.toggle('dark');
