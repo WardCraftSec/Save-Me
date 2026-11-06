@@ -1,5 +1,29 @@
 const isIP=s=>/^\d{1,3}(\.\d{1,3}){3}$/.test(s);
 const W='https://save-me-proxy.silmarillimum.workers.dev/';
+// Dark mode
+function toggleDarkMode(){
+  document.body.classList.toggle('dark');
+  const isDark=document.body.classList.contains('dark');
+  document.getElementById('darkLabel').textContent=isDark?'☀️ Light mode':'🌙 Dark mode';
+  try{localStorage.setItem('sm_dark',isDark?'1':'0')}catch(e){}
+}
+(function(){
+  try{
+    if(localStorage.getItem('sm_dark')==='1'){
+      document.body.classList.add('dark');
+      document.getElementById('darkLabel').textContent='☀️ Light mode';
+    }
+  }catch(e){}
+})();
+
+// Menu
+document.getElementById('menuBtn').addEventListener('click',function(e){
+  e.stopPropagation();
+  document.getElementById('menuDropdown').classList.toggle('visible');
+});
+document.addEventListener('click',function(){
+  document.getElementById('menuDropdown').classList.remove('visible');
+});   
 
 function showTab(n){
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===n));
