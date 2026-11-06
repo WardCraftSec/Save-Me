@@ -1,9 +1,13 @@
 {
   "name": "Save Me",
   "short_name": "SaveMe",
+  "description": "Free DNS filtering setup + IOC triage. No technical knowledge needed.",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0f0f1a",
-  "theme_color": "#4fc3f7",
-  "icons": [{ "src": "icon.png", "sizes": "192x192", "type": "image/png" }]
+  "background_color": "#f8fafc",
+  "theme_color": "#3b82f6",
+  "icons": [
+    { "src": "icon.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
 }   
