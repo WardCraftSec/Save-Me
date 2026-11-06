@@ -24,7 +24,7 @@ Live: https://wardcraftsec.github.io/Save-Me/
 
 ## Architecture
 
-   User Browser
+  ``` User Browser
     │
     │  domain / IP
     ▼
@@ -37,7 +37,8 @@ Cloudflare Worker (save-me-proxy)
     │
     │  JSON
     ▼
-User Browser → Plain-English Summary 
+User Browser → Plain-English Summary
+```
 
 ## How to Use
 
