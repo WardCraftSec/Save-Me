@@ -1,6 +1,13 @@
 const isIP=s=>/^\d{1,3}(\.\d{1,3}){3}$/.test(s);
 const W='https://save-me-proxy.silmarillimum.workers.dev/';
 
+// XSS escape
+function esc(s){
+  const d=document.createElement('div');
+  d.textContent=s;
+  return d.innerHTML;
+}
+
 // Dark mode
 function toggleDarkMode(){
   document.body.classList.toggle('dark');
@@ -18,13 +25,12 @@ function toggleDarkMode(){
 })();
 
 // Menu
-document.getElementById('menuBtn').addEventListener('click',function(e){
-  e.stopPropagation();
+function toggleMenu(){
   document.getElementById('menuDropdown').classList.toggle('visible');
-});
+}
 document.addEventListener('click',function(){
   document.getElementById('menuDropdown').classList.remove('visible');
-});   
+});
 
 function showTab(n){
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===n));
@@ -126,7 +132,7 @@ async function runCheck(){
           vtBreakdown='<ul class="breakdown">';
           let topCount=0;
           for(const c in cats){
-            vtBreakdown+='<li>'+c+' — '+cats[c]+' engine'+(cats[c]>1?'s':'')+'</li>';
+            vtBreakdown+='<li>'+esc(c)+' — '+cats[c]+' engine'+(cats[c]>1?'s':'')+'</li>';
             if(cats[c]>topCount){topCount=cats[c];vtTopCat=c}
           }
           vtBreakdown+='</ul>';
@@ -142,20 +148,20 @@ async function runCheck(){
   }catch(e){}
 
   let html='';
-  if(resolvedIP)html+='<div class="result-card"><h3>Resolved</h3><p class="detail">'+val+' → <strong>'+resolvedIP+'</strong></p></div>';
+  if(resolvedIP)html+='<div class="result-card"><h3>Resolved</h3><p class="detail">'+esc(val)+' → <strong>'+esc(resolvedIP)+'</strong></p></div>';
 
   let sum='';
-  if(geo)sum+=geo+'.';
-  if(org)sum+=' Run by '+org+'.';
+  if(geo)sum+=esc(geo)+'.';
+  if(org)sum+=' Run by '+esc(org)+'.';
   if(usageType)sum+=' This is a '+(usageType.toLowerCase().includes('residential')?'residential (home)':'datacenter (server)')+' IP.';
-  if(vtFlagged>0)sum+=vtFlagged+' security tools flagged it'+(vtTopCat?', mostly for '+vtTopCat:'')+'.';
+  if(vtFlagged>0)sum+=vtFlagged+' security tools flagged it'+(vtTopCat?', mostly for '+esc(vtTopCat):'')+'.';
   else if(vtFlagged===0&&vtClean>0)sum+=' No security tools have flagged it.';
   if(abuseScore!==null&&abuseScore>=50)sum+=' '+abuseScore+'% of recent reports say it is abusive.';
   if(sum)html+='<div class="summary">'+sum+'</div>';
 
   if(abuseScore!==null){
     const cls=abuseScore>=50?'high':abuseScore>=20?'mid':'low';
-    html+='<div class="result-card"><h3>Abuse Reports (AbuseIPDB)</h3><p class="score '+cls+'">'+abuseScore+'%</p><p class="detail">How often other people have reported this as abusive (last 90 days).</p><p class="detail">Type: '+(usageType||'unknown')+'</p></div>';
+    html+='<div class="result-card"><h3>Abuse Reports (AbuseIPDB)</h3><p class="score '+cls+'">'+abuseScore+'%</p><p class="detail">How often other people have reported this as abusive (last 90 days).</p><p class="detail">Type: '+esc(usageType||'unknown')+'</p></div>';
   }
 
   if(vtFlagged>0||vtClean>0){
@@ -166,7 +172,7 @@ async function runCheck(){
   }
 
   if(geo){
-    html+='<div class="result-card"><h3>Location &amp; Network (ipinfo)</h3><p class="detail">'+geo+'<br>Network: '+org+'<br>ASN: '+asn+'</p></div>';
+    html+='<div class="result-card"><h3>Location &amp; Network (ipinfo)</h3><p class="detail">'+esc(geo)+'<br>Network: '+esc(org)+'<br>ASN: '+esc(asn)+'</p></div>';
   }
 
   res.innerHTML=html||'<p style="color:#64748b">No results. Try a different input.</p>';
@@ -188,7 +194,7 @@ function renderHistory(){
   let h=[];
   try{h=JSON.parse(localStorage.getItem('sm_history')||'[]')}catch(e){}
   if(!h.length)return;
-  let items=h.slice(0,10).map(x=>'<div class="history-item"><strong>'+x.t+'</strong><br><span class="ts">'+x.d+'</span></div>').join('');
+  let items=h.slice(0,10).map(x=>'<div class="history-item"><strong>'+esc(x.t)+'</strong><br><span class="ts">'+esc(x.d)+'</span></div>').join('');
   document.getElementById('history').innerHTML='<h3>Recent checks</h3>'+items;
 }
 
