@@ -11,14 +11,14 @@
 </head>
 <body>
   <!-- Three-dot menu -->
-<button class="menu-btn" id="menuBtn" aria-label="Menu">
+<button class="menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Menu">   
   <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
     <circle cx="10" cy="4" r="2"/>
     <circle cx="10" cy="10" r="2"/>
     <circle cx="10" cy="16" r="2"/>
   </svg>
 </button>
-<div class="menu-dropdown" id="menuDropdown">
+<div class="menu-dropdown" id="menuDropdown" onclick="event.stopPropagation()">   
   <button class="menu-item" onclick="toggleDarkMode()">
     <span id="darkLabel">🌙 Dark mode</span>
   </button>
