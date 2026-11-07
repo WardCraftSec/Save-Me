@@ -17,12 +17,12 @@ function toggleDarkMode(){
 }
 (function(){
   try{
-    if(localStorage.getItem('sm_dark')==='1'){
+    if(localStorage.getItem('sm_dark')!=='0'){
       document.body.classList.add('dark');
       document.getElementById('darkLabel').textContent='☀️ Light mode';
     }
   }catch(e){}
-})();
+})();   
 
 // Menu
 function toggleMenu(){
