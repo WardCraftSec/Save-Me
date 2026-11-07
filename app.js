@@ -28,9 +28,11 @@ function toggleDarkMode(){
 function toggleMenu(){
   document.getElementById('menuDropdown').classList.toggle('visible');
 }
-document.addEventListener('click',function(){
-  document.getElementById('menuDropdown').classList.remove('visible');
-});
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.menu-dropdown') && !e.target.closest('.menu-btn')){
+    document.getElementById('menuDropdown').classList.remove('visible');
+  }
+});   
 
 function showTab(n){
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===n));
